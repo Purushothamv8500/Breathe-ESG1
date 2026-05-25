@@ -1,35 +1,43 @@
-import axios from 'axios'
+import axios from "axios";
 
-// Use /api in dev (Vite proxy) or full URL from .env.development
-const API_BASE = import.meta.env.VITE_API_URL || '/api'
+// Use env variable (production) or fallback (local dev)
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ||
+  "http://localhost:8001/api";
 
 export function getClientId() {
-  return localStorage.getItem('client_id') || 'acme'
+  return localStorage.getItem("client_id") || "acme";
 }
 
 export function setClientId(id) {
-  localStorage.setItem('client_id', id)
+  localStorage.setItem("client_id", id);
 }
 
 const http = axios.create({
   baseURL: API_BASE,
-})
+});
 
 http.interceptors.request.use((config) => {
-  config.headers['X-Client-Id'] = getClientId()
-  return config
-})
+  config.headers["X-Client-Id"] = getClientId();
+  return config;
+});
 
 export const api = {
-  dashboard: () => http.get('/dashboard/').then((r) => r.data),
-  records: (params = {}) => http.get('/records/', { params }).then((r) => r.data),
-  record: (id) => http.get(`/records/${id}/`).then((r) => r.data),
+  dashboard: () => http.get("/dashboard/").then((r) => r.data),
+
+  records: (params = {}) =>
+    http.get("/records/", { params }).then((r) => r.data),
+
+  record: (id) =>
+    http.get(`/records/${id}/`).then((r) => r.data),
+
   approve: (id, body = {}) =>
     http.post(`/records/${id}/approve/`, body).then((r) => r.data),
+
   reject: (id, body = {}) =>
     http.post(`/records/${id}/reject/`, body).then((r) => r.data),
-}
+};
 
 export function unwrapRecords(data) {
-  return data?.results ?? data ?? []
+  return data?.results ?? data ?? [];
 }
