@@ -1,0 +1,8 @@
+Plant,PLANT_CODE,fuel_qty,FuelUnit,Posting Date,Material,net_value
+North Plant,P001,1250.5,liters,01/15/2024,Diesel,
+South Site,PLNT-S2,320,gallons,2024-02-20,Gasoline,
+,UNK01,500,kg,15-Mar-2024,Heating Oil,
+West Facility,P003,,liters,2024-04-01,Unknown Fuel,
+East Hub,P001,999999,liters,04/10/2024,Diesel,
+Procurement Row,P002,,,2024-05-01,Office Supplies,12500.00
+P002,,, ,05/15/2024,IT Hardware,45000

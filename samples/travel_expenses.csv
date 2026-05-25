@@ -1,0 +1,7 @@
+Employee,Type,From,To,Start_Date,Amount,Currency
+Jane Doe,Flight,JFK,LAX,2024-01-10,450,USD
+John Smith,Flight,LHR,CDG,2024-02-05,220,EUR
+Alice Brown,Hotel,,,2024-02-12,180,USD
+Bob Wilson,Ground Transport,,,2024-03-01,45,USD
+Carol Lee,Flight,ORD,,2024-03-15,380,USD
+Dan Green,Flight,SFO,NRT,2024-04-01,1200,USD
