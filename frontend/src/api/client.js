@@ -1,9 +1,7 @@
 import axios from "axios";
 
-// Use env variable (production) or fallback (local dev)
-const API_BASE =
-  import.meta.env.VITE_API_BASE_URL ||
-  "http://localhost:8001/api";
+// ONLY use env variable (no localhost fallback issues in production)
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 export function getClientId() {
   return localStorage.getItem("client_id") || "acme";
@@ -17,6 +15,7 @@ const http = axios.create({
   baseURL: API_BASE,
 });
 
+// attach required header
 http.interceptors.request.use((config) => {
   config.headers["X-Client-Id"] = getClientId();
   return config;
