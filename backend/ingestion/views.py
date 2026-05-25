@@ -14,6 +14,14 @@ class BaseIngestView(APIView):
     parser_classes = [MultiPartParser, FormParser, JSONParser]
     source_type = None
 
+    def get(self, request):
+        """Browsable API helper — ingest endpoints accept POST only."""
+        return Response({
+            'detail': 'Use POST with a CSV file (field "file") or JSON rows.',
+            'client_id': 'X-Client-Id header, ?client_id=acme, or default acme when DEBUG=true',
+            'source_type': self.source_type,
+        })
+
     def post(self, request):
         tenant = get_tenant_from_request(request)
 

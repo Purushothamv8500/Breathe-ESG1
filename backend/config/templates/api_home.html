@@ -116,14 +116,17 @@
     {% endif %}
     <div class="endpoints">
       <h2>API endpoints</h2>
-      <code>GET /api/dashboard/</code>
-      <code>GET /api/records/</code>
+      <code>GET /api/dashboard/?client_id=acme</code>
+      <code>GET /api/records/?client_id=acme</code>
       <code>POST /api/ingest/sap/</code>
       <code>POST /api/ingest/utility/</code>
       <code>POST /api/ingest/travel/</code>
       <code>GET /admin/</code>
     </div>
-    <p class="hint">All requests need header: <code>X-Client-Id: acme</code> or <code>globex</code></p>
+    <p class="hint">
+      Tenant: header <code>X-Client-Id: acme</code> or query <code>?client_id=acme</code>
+      (local DEBUG defaults to acme). Also: <code>globex</code>.
+    </p>
   </div>
 </body>
 </html>
