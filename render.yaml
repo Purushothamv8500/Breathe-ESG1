@@ -1,0 +1,20 @@
+# Render Blueprint — backend API at https://breathe-esg1.onrender.com
+services:
+  - type: web
+    name: breathe-esg1
+    runtime: python
+    rootDir: backend
+    buildCommand: ./build.sh
+    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "false"
+      - key: ALLOWED_HOSTS
+        value: breathe-esg1.onrender.com,.onrender.com
+      # Set after frontend is live (e.g. https://breathe-esg1.vercel.app)
+      - key: FRONTEND_URL
+        sync: false

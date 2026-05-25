@@ -1,17 +1,20 @@
+from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render
 
 
 def root(request):
     """
-    Landing page at http://127.0.0.1:8001/
+    Landing page at /
     JSON if Accept: application/json, else HTML for browsers.
     """
+    frontend_url = settings.FRONTEND_URL or None
+
     if 'application/json' in request.headers.get('Accept', ''):
         return JsonResponse({
             'service': 'Breathe ESG Data Ingestion API',
             'status': 'running',
-            'ui': 'http://127.0.0.1:5173',
+            'ui': frontend_url,
             'endpoints': {
                 'dashboard': '/api/dashboard/',
                 'records': '/api/records/',
@@ -22,4 +25,6 @@ def root(request):
             },
         })
 
-    return render(request, 'api_home.html')
+    return render(request, 'api_home.html', {
+        'frontend_url': frontend_url,
+    })

@@ -35,6 +35,27 @@ UI: `http://127.0.0.1:5173` (proxies `/api` → Django on **8001**)
 
 **Important:** Start the backend before the frontend. If you see "Backend not connected", run `.\start-backend.ps1` then hard-refresh the browser.
 
+### Frontend with a deployed backend
+
+If the Django API is already hosted (Render, Railway, Azure, etc.):
+
+1. Copy `frontend/.env.production.example` → `frontend/.env.production`
+2. Set `VITE_API_BASE_URL` to your live API root, e.g. `https://your-api.example.com/api`
+3. Build and deploy:
+
+```bash
+cd frontend
+npm run build
+```
+
+Deploy `frontend/dist/` (Vercel, Netlify, Cloudflare Pages). On the host, set **`VITE_API_BASE_URL`** in build settings (baked in at build time).
+
+Verify the API:
+
+```bash
+curl -H "X-Client-Id: acme" https://your-api.example.com/api/dashboard/
+```
+
 ### Frontend pages
 
 - **Dashboard** — KPI cards, source/status charts, data quality panel

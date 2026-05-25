@@ -1,15 +1,23 @@
 """
 Django settings for ESG Data Ingestion & Review System.
 """
+import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'dev-only-change-in-production-esg-ingestion-key'
+# Analyst UI URL (set on Render after deploying frontend, e.g. https://your-app.vercel.app)
+FRONTEND_URL = os.environ.get('FRONTEND_URL', '').rstrip('/')
 
-DEBUG = True
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'dev-only-change-in-production-esg-ingestion-key',
+)
 
-ALLOWED_HOSTS = ['*']
+DEBUG = os.environ.get('DEBUG', 'true').lower() in ('1', 'true', 'yes')
+
+_allowed = os.environ.get('ALLOWED_HOSTS', '*')
+ALLOWED_HOSTS = [h.strip() for h in _allowed.split(',') if h.strip()]
 
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// ONLY use env variable (no localhost fallback issues in production)
-const API_BASE = import.meta.env.VITE_API_BASE_URL;
+// Relative /api uses Vite proxy in dev; set VITE_API_BASE_URL for production
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api";
 
 export function getClientId() {
   return localStorage.getItem("client_id") || "acme";

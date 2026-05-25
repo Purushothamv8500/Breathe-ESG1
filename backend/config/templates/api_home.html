@@ -104,8 +104,16 @@
     <p>
       This is the <strong>backend API</strong> only. The analyst dashboard is a separate React app.
     </p>
-    <a class="btn" href="http://127.0.0.1:5173">Open Analyst Dashboard →</a>
-    <p class="hint">Start frontend: <code>cd frontend && npm run dev</code></p>
+    {% if frontend_url %}
+    <a class="btn" href="{{ frontend_url }}">Open Analyst Dashboard →</a>
+    {% else %}
+    <p class="hint">
+      <strong>Dashboard not hosted yet.</strong> Run locally:
+      <code>cd frontend && npm run dev</code>, then open
+      <a href="http://localhost:5173" style="color:#3d9eff">http://localhost:5173</a>.
+      After you deploy the UI (Vercel/Netlify), set <code>FRONTEND_URL</code> on Render to that URL.
+    </p>
+    {% endif %}
     <div class="endpoints">
       <h2>API endpoints</h2>
       <code>GET /api/dashboard/</code>
