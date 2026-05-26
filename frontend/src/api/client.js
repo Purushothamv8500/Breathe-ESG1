@@ -1,9 +1,9 @@
 import axios from "axios";
 
-// Relative /api uses Vite proxy in dev; set VITE_API_BASE_URL for production
+// Direct production URL; set VITE_API_BASE_URL for overrides
 const API_BASE =
   import.meta.env.VITE_API_BASE_URL ||
-  "https://breathe-esg-1hc4.onrender.com/api";
+  "https://breathe-esg1.onrender.com/api";
   
 export function getClientId() {
   return localStorage.getItem("client_id") || "acme";
@@ -17,9 +17,10 @@ const http = axios.create({
   baseURL: API_BASE,
 });
 
-// attach required header
+// attach required client_id as a query param to bypass CORS preflight header block
 http.interceptors.request.use((config) => {
-  config.headers["X-Client-Id"] = getClientId();
+  config.params = config.params || {};
+  config.params.client_id = getClientId();
   return config;
 });
 
